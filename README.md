@@ -1,1 +1,1 @@
-Migrations in Postgres using node-pg-migrations.
+Migrations in Postgres using node-pg-migrate.
