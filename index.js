@@ -41,11 +41,16 @@ app.get("/posts", async (req, res) => {
           .join("")}
       </tbody>
     </table>
-    <form method=POST>
-      <label>lat</label>
-      <input name="lat" />
-      <label>lng</label>
-      <input name="lng" />
+    <form method="POST">
+      <h3>Create a post</h3>
+      <div>
+        <label>lat</label>
+        <input name="lat" />
+      </div>
+      <div>
+        <label>lng</label>
+        <input name="lng" />
+      </div>
       <button type="submit">Add Post</button>
     </form>
   `);
