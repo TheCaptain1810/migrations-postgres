@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "express": "^4.21.2",
     "node-pg-migrate": "^7.9.1",
     "pg": "^8.13.3"
   }
