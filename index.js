@@ -22,22 +22,48 @@ app.get("/posts", async (req, res) => {
   res.send(`
     <table>
       <thead>
-        <tr>id</tr>
-        <tr>lat</tr>
-        <tr>lng</tr>
+        <tr>
+          <td>id</td>
+          <td>lat</td>
+          <td>lng</td>
+        </tr>
       </thead>
       <tbody>
-        ${rows.map((row) => {
-          <tr></tr>
-          <tr></tr>
-          <tr></tr> 
-        })}
+        ${rows
+          .map(
+            (row) =>
+              `<tr>
+              <td>${row.id}</td>
+              <td>${row.lat}</td>
+              <td>${row.lng}</td>
+            </tr>`
+          )
+          .join("")}
       </tbody>
-    </table> 
+    </table>
+    <form method=POST>
+      <label>lat</label>
+      <input name="lat" />
+      <label>lng</label>
+      <input name="lng" />
+      <button type="submit">Add Post</button>
+    </form>
   `);
+});
+
+app.post("/posts", async (req, res) => {
+  const { lat, lng } = req.body;
+
+  await pool.query(
+    `
+    INSERT INTO posts (lat, lng) VALUES ($1, $2);
+  `,
+    [lat, lng]
+  );
+
+  res.redirect("/posts");
 });
 
 app.listen(5000, () => {
   console.log("server started on port 5000...");
 });
-
