@@ -24,8 +24,8 @@ app.get("/posts", async (req, res) => {
       <thead>
         <tr>
           <td>id</td>
-          <td>lat</td>
           <td>lng</td>
+          <td>lat</td>
         </tr>
       </thead>
       <tbody>
@@ -34,8 +34,8 @@ app.get("/posts", async (req, res) => {
             (row) =>
               `<tr>
               <td>${row.id}</td>
-              <td>${row.lat}</td>
-              <td>${row.lng}</td>
+              <td>${row.loc.x}</td>
+              <td>${row.loc.y}</td>
             </tr>`
           )
           .join("")}
@@ -44,12 +44,12 @@ app.get("/posts", async (req, res) => {
     <form method="POST">
       <h3>Create a post</h3>
       <div>
-        <label>lat</label>
-        <input name="lat" />
+      <label>lng</label>
+      <input name="lng" />
       </div>
       <div>
-        <label>lng</label>
-        <input name="lng" />
+        <label>lat</label>
+        <input name="lat" />
       </div>
       <button type="submit">Add Post</button>
     </form>
@@ -61,9 +61,9 @@ app.post("/posts", async (req, res) => {
 
   await pool.query(
     `
-    INSERT INTO posts (lat, lng, loc) VALUES ($1, $2, $3);
+    INSERT INTO posts (loc) VALUES ($1);
   `,
-    [lat, lng, `(${lng}, ${lat})`]
+    [`(${lng}, ${lat})`]
   );
 
   res.redirect("/posts");
